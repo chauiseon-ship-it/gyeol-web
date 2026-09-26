@@ -59,7 +59,7 @@ export default function Home() {
         </p>
 
         <h1 className="text-5xl font-bold md:text-7xl">
-          伴 NETWORK
+          I LOVE ME THAN VALO
         </h1>
 
         <p className="mt-6 max-w-xl text-lg leading-8 text-white/50">
