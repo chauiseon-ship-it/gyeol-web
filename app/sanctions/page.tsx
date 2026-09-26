@@ -51,6 +51,13 @@ export default function SanctionsPage() {
             <a href="/notice" className="transition hover:text-white">
               공지
             </a>
+
+            <a
+              href="/admin/login"
+              className="transition hover:text-white"
+            >
+              관리자 로그인
+            </a>
           </nav>
         </div>
       </header>
@@ -69,7 +76,7 @@ export default function SanctionsPage() {
           커뮤니티 운영 규칙에 따라 처리된 제재 기록을 확인할 수 있습니다.
         </p>
 
-        {/* 검색창 - 디자인 먼저 */}
+        {/* 검색창 */}
         <div className="mt-10">
           <input
             type="text"
