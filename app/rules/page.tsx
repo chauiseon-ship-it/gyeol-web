@@ -4,40 +4,72 @@ export default function RulesPage() {
       number: "01",
       title: "기본 예절",
       description:
-        "모든 이용자를 존중해주세요. 과도한 비방, 괴롭힘, 분쟁 유도는 제재될 수 있습니다.",
+        "욕설, 비하, 조롱, 시비 등 다른 사람에게 불쾌감을 줄 수 있는 언행은 삼가주세요.",
     },
     {
       number: "02",
-      title: "도배 및 스팸",
+      title: "상대방이 싫어하는 행동은 멈추기",
       description:
-        "반복 메시지, 의미 없는 도배, 과도한 멘션 등 다른 이용을 방해하는 행동은 금지됩니다.",
+        "장난이라도 상대방이 불편하다고 표현했다면 해당 행동을 계속하지 말아주세요.",
     },
     {
       number: "03",
-      title: "개인정보 보호",
+      title: "과도한 싸움 및 분쟁 금지",
       description:
-        "본인 또는 다른 사람의 개인정보를 공개하거나 공유하지 마세요.",
+        "게임이나 채팅 중 문제가 생겼다면 공개적으로 싸움을 이어가기보다 관리자에게 알려주세요.",
     },
     {
       number: "04",
-      title: "채널 목적 준수",
+      title: "도배 및 채팅 방해 금지",
       description:
-        "각 채널의 목적에 맞게 이용해주세요. 주제와 맞지 않는 내용은 적절한 채널로 이동해주세요.",
+        "같은 내용의 반복 전송, 과도한 멘션, 의미 없는 도배 등 다른 사람의 채팅 이용을 방해하는 행동은 금지합니다.",
     },
     {
       number: "05",
-      title: "운영 방해 금지",
+      title: "부적절한 콘텐츠 금지",
       description:
-        "제재 회피, 반복적인 규칙 위반 등 정상적인 서버 운영을 방해하는 행동은 금지됩니다.",
+        "음란물, 지나치게 폭력적이거나 혐오감을 주는 콘텐츠 등 서버 이용에 부적절한 내용은 게시하지 말아주세요.",
+    },
+    {
+      number: "06",
+      title: "개인정보 보호",
+      description:
+        "본인 또는 다른 사람의 개인정보를 공개하거나 허락 없이 공유하지 말아주세요.",
+    },
+    {
+      number: "07",
+      title: "홍보 및 초대 링크",
+      description:
+        "관리자의 허락 없는 타 서버 홍보, 광고 및 초대 링크 게시는 금지합니다.",
+    },
+    {
+      number: "08",
+      title: "관리자 사칭 및 허위 신고 금지",
+      description:
+        "관리자인 것처럼 사칭하거나 다른 이용자를 곤란하게 만들기 위한 고의적인 허위 신고는 금지합니다.",
+    },
+    {
+      number: "09",
+      title: "공지사항 확인",
+      description:
+        "중요한 운영 안내 및 규칙 변경 사항이 올라올 수 있으니 공지사항을 확인해주세요.",
+    },
+    {
+      number: "10",
+      title: "관리자 안내 준수",
+      description:
+        "규칙에 명시되지 않은 상황이라도 서버 운영 및 분쟁 해결을 위해 필요한 관리자의 안내를 따라주세요.",
     },
   ];
 
   return (
     <main className="min-h-screen bg-[#08090c] text-white">
+      {/* 상단 메뉴 */}
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <a href="/" className="text-xl font-bold tracking-wider">
-            伴 <span className="text-white/50">NETWORK</span>
+            I LOVE ME THAN{" "}
+            <span className="text-white/50">VALO</span>
           </a>
 
           <nav className="flex gap-6 text-sm text-white/50">
@@ -60,6 +92,7 @@ export default function RulesPage() {
         </div>
       </header>
 
+      {/* 규칙 */}
       <section className="mx-auto max-w-4xl px-6 py-20">
         <div className="mb-14">
           <p className="mb-4 text-xs font-semibold tracking-[0.35em] text-white/30">
@@ -71,11 +104,12 @@ export default function RulesPage() {
           </h1>
 
           <p className="mt-5 max-w-2xl leading-7 text-white/45">
-            伴 NETWORK의 모든 구성원이 편하게 활동할 수 있도록
+            I LOVE ME THAN VALO의 모든 구성원이 편하게 활동할 수 있도록
             아래 규칙을 확인해주세요.
           </p>
         </div>
 
+        {/* 규칙 목록 */}
         <div className="space-y-4">
           {rules.map((rule) => (
             <article
@@ -101,10 +135,21 @@ export default function RulesPage() {
           ))}
         </div>
 
+        {/* 제재 안내 */}
         <div className="mt-12 rounded-2xl border border-white/10 bg-white/[0.025] p-6">
-          <p className="text-sm leading-6 text-white/40">
-            규칙 위반에 대한 조치는 상황과 정도에 따라 달라질 수 있으며,
-            제재 기록은 제재 기록 페이지에서 확인할 수 있습니다.
+          <p className="text-xs font-semibold tracking-[0.25em] text-white/30">
+            SANCTION POLICY
+          </p>
+
+          <h2 className="mt-3 text-lg font-semibold">
+            제재 안내
+          </h2>
+
+          <p className="mt-3 text-sm leading-7 text-white/40">
+            규칙 위반의 내용과 정도에 따라 경고, 타임아웃, 추방,
+            차단 등의 조치가 이루어질 수 있습니다.
+            반복적인 규칙 위반이나 심각한 행위의 경우 단계 없이
+            더 강한 조치가 적용될 수 있습니다.
           </p>
         </div>
 
