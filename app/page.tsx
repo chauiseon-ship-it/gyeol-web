@@ -5,7 +5,7 @@ export default function Home() {
     // Discord 데스크톱 앱 실행 시도
     window.location.href = "discord://-/invite/m7ND3bucfh";
 
-    // 앱 실행이 안 되는 경우 웹 초대 페이지로 이동
+    // Discord 앱이 열리지 않으면 웹 초대 페이지로 이동
     setTimeout(() => {
       window.location.href = "https://discord.gg/m7ND3bucfh";
     }, 1500);
@@ -17,7 +17,8 @@ export default function Home() {
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <a href="/" className="text-xl font-bold tracking-wider">
-            伴 <span className="text-white/50">NETWORK</span>
+            I LOVE ME THAN{" "}
+            <span className="text-white/50">VALO</span>
           </a>
 
           <nav className="flex gap-6 text-sm text-white/50">
@@ -47,6 +48,13 @@ export default function Home() {
               className="transition hover:text-white"
             >
               공지
+            </a>
+
+            <a
+              href="/admin/login"
+              className="transition hover:text-white"
+            >
+              관리자 로그인
             </a>
           </nav>
         </div>
