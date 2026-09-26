@@ -1,98 +1,119 @@
 "use client";
 
-export default function Home() {
-  function openDiscord() {
-    // Discord 데스크톱 앱 실행 시도
-    window.location.href = "discord://-/invite/m7ND3bucfh";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "../utils/supabase/client";
 
-    // 앱 실행이 안 되는 경우 웹 초대 페이지로 이동
-    setTimeout(() => {
-      window.location.href = "https://discord.gg/m7ND3bucfh";
-    }, 1500);
+export default function AdminLoginPage() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  async function login() {
+    if (!email.trim() || !password) {
+      setMessage("이메일과 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+
+    if (error) {
+      console.error(error);
+      setMessage("이메일 또는 비밀번호를 확인해주세요.");
+      setLoading(false);
+      return;
+    }
+
+    router.push("/admin");
+    router.refresh();
   }
 
   return (
-    <main className="min-h-screen bg-[#08090c] text-white">
-      {/* 상단 메뉴 */}
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <a href="/" className="text-xl font-bold tracking-wider">
-            伴 <span className="text-white/50">NETWORK</span>
-          </a>
+    <main className="flex min-h-screen items-center justify-center bg-[#08090c] px-6 text-white">
+      <div className="w-full max-w-md">
+        <a
+          href="/"
+          className="text-sm text-white/40 transition hover:text-white"
+        >
+          ← 홈페이지
+        </a>
 
-          <nav className="flex gap-6 text-sm text-white/50">
-            <a
-              href="/"
-              className="text-white transition hover:text-white"
-            >
-              홈
-            </a>
+        <div className="mt-10">
+          <p className="text-xs tracking-[0.35em] text-white/30">
+            ADMINISTRATOR
+          </p>
 
-            <a
-              href="/rules"
-              className="transition hover:text-white"
-            >
-              규칙
-            </a>
+          <h1 className="mt-3 text-4xl font-bold">
+            관리자 로그인
+          </h1>
 
-            <a
-              href="/sanctions"
-              className="transition hover:text-white"
-            >
-              제재 기록
-            </a>
-
-            <a
-              href="/notice"
-              className="transition hover:text-white"
-            >
-              공지
-            </a>
-
-            {/* 관리자 로그인 */}
-            <a
-              href="/admin/login"
-              className="transition hover:text-white"
-            >
-              관리자 로그인
-            </a>
-          </nav>
+          <p className="mt-4 text-sm leading-6 text-white/40">
+            관리자 계정으로 로그인해주세요.
+          </p>
         </div>
-      </header>
 
-      {/* 메인 화면 */}
-      <section className="mx-auto flex min-h-[calc(100vh-81px)] max-w-5xl flex-col justify-center px-8">
-        <p className="mb-4 text-sm tracking-[0.3em] text-white/40">
-          COMMUNITY NETWORK
-        </p>
+        <div className="mt-10 space-y-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+          <div>
+            <label className="mb-2 block text-sm text-white/60">
+              이메일
+            </label>
 
-        <h1 className="text-5xl font-bold md:text-7xl">
-          I LOVE ME THAN VALO
-        </h1>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="admin@example.com"
+              autoComplete="email"
+              className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-white outline-none placeholder:text-white/20 focus:border-white/30"
+            />
+          </div>
 
-        <p className="mt-6 max-w-xl text-lg leading-8 text-white/50">
-          커뮤니티의 규칙, 공지사항과 제재 기록을
-          한곳에서 확인할 수 있습니다.
-        </p>
+          <div>
+            <label className="mb-2 block text-sm text-white/60">
+              비밀번호
+            </label>
 
-        {/* 버튼 */}
-        <div className="mt-10 flex gap-4">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  login();
+                }
+              }}
+              placeholder="비밀번호"
+              autoComplete="current-password"
+              className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-white outline-none placeholder:text-white/20 focus:border-white/30"
+            />
+          </div>
+
+          {message && (
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/60">
+              {message}
+            </div>
+          )}
+
           <button
             type="button"
-            onClick={openDiscord}
-            className="rounded-lg bg-white px-6 py-3 font-semibold text-black transition hover:bg-white/80"
+            onClick={login}
+            disabled={loading}
+            className="w-full rounded-xl bg-white px-4 py-3 font-semibold text-black transition hover:bg-white/80 disabled:opacity-50"
           >
-            서버 입장
+            {loading ? "로그인 중..." : "로그인"}
           </button>
-
-          <a
-            href="/rules"
-            className="rounded-lg border border-white/20 px-6 py-3 text-white/70 transition hover:bg-white/10 hover:text-white"
-          >
-            규칙 확인
-          </a>
         </div>
-      </section>
+      </div>
     </main>
   );
 }
