@@ -1,94 +1,98 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "../utils/supabase/client";
+export default function Home() {
+  function openDiscord() {
+    // Discord 데스크톱 앱 실행 시도
+    window.location.href = "discord://-/invite/m7ND3bucfh";
 
-export default function AdminLoginPage() {
-  const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    setLoading(true);
-    setMessage("");
-
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setMessage("이메일 또는 비밀번호를 확인해주세요.");
-      setLoading(false);
-      return;
-    }
-
-    router.push("/admin");
-    router.refresh();
+    // 앱 실행이 안 되는 경우 웹 초대 페이지로 이동
+    setTimeout(() => {
+      window.location.href = "https://discord.gg/m7ND3bucfh";
+    }, 1500);
   }
 
   return (
-    <main className="min-h-screen bg-[#08090b] text-white flex items-center justify-center px-6">
-      <div className="w-full max-w-md">
-        <p className="mb-3 text-xs tracking-[0.35em] text-white/40">
-          MANAGEMENT SYSTEM
+    <main className="min-h-screen bg-[#08090c] text-white">
+      {/* 상단 메뉴 */}
+      <header className="border-b border-white/10">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+          <a href="/" className="text-xl font-bold tracking-wider">
+            伴 <span className="text-white/50">NETWORK</span>
+          </a>
+
+          <nav className="flex gap-6 text-sm text-white/50">
+            <a
+              href="/"
+              className="text-white transition hover:text-white"
+            >
+              홈
+            </a>
+
+            <a
+              href="/rules"
+              className="transition hover:text-white"
+            >
+              규칙
+            </a>
+
+            <a
+              href="/sanctions"
+              className="transition hover:text-white"
+            >
+              제재 기록
+            </a>
+
+            <a
+              href="/notice"
+              className="transition hover:text-white"
+            >
+              공지
+            </a>
+
+            {/* 관리자 로그인 */}
+            <a
+              href="/admin/login"
+              className="transition hover:text-white"
+            >
+              관리자 로그인
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      {/* 메인 화면 */}
+      <section className="mx-auto flex min-h-[calc(100vh-81px)] max-w-5xl flex-col justify-center px-8">
+        <p className="mb-4 text-sm tracking-[0.3em] text-white/40">
+          COMMUNITY NETWORK
         </p>
 
-        <h1 className="text-4xl font-bold">관리자 로그인</h1>
+        <h1 className="text-5xl font-bold md:text-7xl">
+          I LOVE ME THAN VALO
+        </h1>
 
-        <p className="mt-3 text-sm text-white/45">
-          관리자 계정으로 로그인하세요.
+        <p className="mt-6 max-w-xl text-lg leading-8 text-white/50">
+          커뮤니티의 규칙, 공지사항과 제재 기록을
+          한곳에서 확인할 수 있습니다.
         </p>
 
-        <form
-          onSubmit={handleLogin}
-          className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02] p-7"
-        >
-          <label className="block text-sm text-white/60">이메일</label>
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            autoComplete="email"
-            className="mt-2 w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none focus:border-white/30"
-            placeholder="admin@example.com"
-          />
-
-          <label className="mt-6 block text-sm text-white/60">비밀번호</label>
-
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="current-password"
-            className="mt-2 w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none focus:border-white/30"
-            placeholder="비밀번호"
-          />
-
-          {message && (
-            <p className="mt-4 text-sm text-red-400">{message}</p>
-          )}
-
+        {/* 버튼 */}
+        <div className="mt-10 flex gap-4">
           <button
-            type="submit"
-            disabled={loading}
-            className="mt-7 w-full rounded-xl bg-white py-3 font-semibold text-black transition hover:bg-white/90 disabled:opacity-50"
+            type="button"
+            onClick={openDiscord}
+            className="rounded-lg bg-white px-6 py-3 font-semibold text-black transition hover:bg-white/80"
           >
-            {loading ? "로그인 중..." : "로그인"}
+            서버 입장
           </button>
-        </form>
-      </div>
+
+          <a
+            href="/rules"
+            className="rounded-lg border border-white/20 px-6 py-3 text-white/70 transition hover:bg-white/10 hover:text-white"
+          >
+            규칙 확인
+          </a>
+        </div>
+      </section>
     </main>
   );
 }
